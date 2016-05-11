@@ -12,7 +12,7 @@ Salus_Baro::Salus_Baro(){
 void Salus_Baro::begin(){
 
     _ms5607.begin(SALUS_BARO_ADDRESS);
-    _ms5607.setOversamplingRate(MS5607_OSR2048);
+    _ms5607.setOversamplingRate(MS5607_OSR1024);
     _baroState = BARO_STATE_TEMP;
 
 #ifdef DEBUG_BARO

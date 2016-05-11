@@ -21,7 +21,7 @@ int32_t zAxis = 32768;
 float xG = 0;
 float yG = 0;
 float zG = 0;
-float Kp = .5;
+float Kp = 1.0;
 
 void accelTask(){
     xAxis = Kp*(analogRead(A0) + XBIAS) + (1 - Kp)*xAxis;
