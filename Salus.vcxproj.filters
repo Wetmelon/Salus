@@ -41,19 +41,16 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Salus_GPS.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Salus_Inertial.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Salus_Logging.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Salus_Accel.cpp">
+    <ClCompile Include="Salus_Baro.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Salus_Baro.cpp">
+    <ClCompile Include="Salus_Common.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Salus_GPS.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
