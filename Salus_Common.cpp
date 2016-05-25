@@ -22,4 +22,3 @@ void longBeep(int numBeeps){
         digitalWriteFast(BUZZER_PIN, LOW);
 #endif
 }
-

@@ -53,5 +53,5 @@ void writeHeader();
 void startLogger();
 void loggingTask();
 
-void startBinLogger();
+void startBinLogger(void (*dateTime)(uint16_t*,uint16_t*));
 void fastLog();

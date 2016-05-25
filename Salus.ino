@@ -1,4 +1,5 @@
 
+#include <i2c_t3.h>
 #include <Arduino.h>
 #include "Salus_Common.h"
 #include "Salus_GPS.h"
@@ -6,8 +7,13 @@
 #include "Salus_Inertial.h"
 #include "Salus_Logging.h"
 #include "Salus_Baro.h"
-#include <Melon_ADXL377.h>
 
+
+/* ---------------------------------------------------------------------------- +
+*
+*      Set up the multi-rate main loop timer
+*
+* ---------------------------------------------------------------------------- */
 #define TIMER_RATE      (1000)                  // Check the timer every 1 millisecond
 #define GPS_RATE        (TIMER_RATE / 100)      // Check GPS for new NMEA at 100Hz.  Actual refresh rate is 5Hz.
 #define ADXL_RATE       (TIMER_RATE / 100)      // Process ADXL377 data at 100Hz
@@ -33,7 +39,9 @@ Adafruit_GPS* gpsPt;
 // Runs as an interrupt and sets the flags for our multi-rate main loop
 void multiRateISR(){
     timer++;
+    
     readGPS();
+
     if (timer % GPS_RATE == 0) { gps_flag = 1; }
     if (timer % ADXL_RATE == 0) { adxl_flag = 1; }
     if (timer % BNO055_RATE == 0) { bno055_flag = 1; }
@@ -59,16 +67,15 @@ void setup()
     delay(500);
     Serial.println("\nSalus Testing.");
 
+    Wire.begin(I2C_MASTER, 0x00, I2C_PINS_18_19, I2C_PULLUP_EXT, I2C_RATE_400);
+
     // Initialize the Barometer
     Serial.println("Initializing Barometer...");
     myBaro.begin();
     shortBeep();
-    myBaro.setReferencePressure(1013.6);
     Serial.println("Barometer Initialized.\n");
     
-    // Initialize Data logger
-    //startLogger();
-    startBinLogger();
+
 
     // Initialize the IMU
     Serial.println("Initializing IMU...");
@@ -81,6 +88,12 @@ void setup()
     gpsBegin();
     shortBeep();
     Serial.println("GPS Initialized.\n");
+
+    gpsPt = getGPS();
+
+    // Initialize Data logger
+    //startLogger();
+    startBinLogger(&dateTime);
 
     Wire.setRate(I2C_RATE_400);
 
@@ -97,8 +110,6 @@ void setup()
     delay(75);
     shortBeep();
     delay(200);
-
-    gpsPt = getGPS();
 }
 
 void loop()
@@ -162,4 +173,9 @@ int freeRam()
     extern int __heap_start, *__brkval;
     int v;
     return (int)&v - (__brkval == 0 ? (int)&__heap_start : (int)__brkval);
+}
+
+void dateTime(uint16_t *date, uint16_t *time){
+    *date = FAT_DATE(gpsPt->year, gpsPt->month, gpsPt->day);
+    *time = FAT_TIME(gpsPt->hour, gpsPt->minute, gpsPt->seconds);
 }

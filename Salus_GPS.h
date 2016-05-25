@@ -9,3 +9,4 @@ Adafruit_GPS* getGPS();
 bool gpsBegin();
 bool gpsTask();
 char readGPS();
+void dateTime(uint16_t *date, uint16_t *time);

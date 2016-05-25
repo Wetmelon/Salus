@@ -21,7 +21,7 @@ const uint16_t FILL_DIM = 512 - DATA_DIM*sizeof(salus_data_t);
 // Maximum file size in blocks.
 // The program creates a contiguous file with FILE_BLOCK_COUNT 512 byte blocks.
 // This file is flash erased using special SD commands.
-// 5000 entries is good for 360 seconds of logging (6 minutes)
+// 51430 entries is good for 3600 seconds of logging (60 minutes)
 const uint32_t FILE_BLOCK_COUNT = 51430;
 
 // max number of blocks to erase per erase call
@@ -58,7 +58,9 @@ void writeHeader(){
     }
 }
 
-void startBinLogger(){
+
+
+void startBinLogger(void (*dateTime)(uint16_t *date, uint16_t *time)){
 
 #ifdef LOGGER_DEBUG
     Serial.print("Size of Struct: ");
@@ -86,6 +88,9 @@ void startBinLogger(){
     } while (sd.exists(sName));
 
     binFile.close();
+
+    binFile.dateTimeCallback(dateTime);
+
     if (!binFile.createContiguous(sd.vwd(), sName, 512 * FILE_BLOCK_COUNT)){
         error("createContiguous failed");
     }
@@ -100,6 +105,8 @@ void startBinLogger(){
         error("cacheClear failed");
     }
 
+    binFile.dateTimeCallbackCancel();
+
     uint32_t bgnErase = bgnBlock;
     uint32_t endErase;
     while (bgnErase < endBlock) {
@@ -112,6 +119,7 @@ void startBinLogger(){
         }
         bgnErase = endErase + 1;
     }
+
 
     // Start a multiple block write.
     if (!sd.card()->writeStart(bgnBlock, FILE_BLOCK_COUNT)) {

@@ -19,7 +19,7 @@ bool gpsBegin(){
     Serial2.begin(9600);
     delay(100);
     myGPS.sendCommand(PMTK_SET_NMEA_OUTPUT_RMCGGA);     // RMC and GGA data
-    myGPS.sendCommand(PMTK_SET_NMEA_UPDATE_5HZ);        // 5 Hz update rate
+    myGPS.sendCommand(PMTK_SET_NMEA_UPDATE_10HZ);        // 5 Hz update rate
     Serial.println("Waiting for GPS Fix...");
 
 #ifdef WAIT_GPS

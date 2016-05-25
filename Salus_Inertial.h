@@ -267,7 +267,6 @@ void imuBegin(){
 
 void imuTask(){
     /* Get a new sensor event */
-    
     bno.getEvent(&event);
 
 #ifdef IMU_DEBUG
