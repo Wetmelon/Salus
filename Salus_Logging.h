@@ -14,7 +14,7 @@ typedef struct __attribute__ ((packed)) {
     // Floats are 32-bit on Teensy 3.x with Teensyduino 1.6.x
     // Doubles are 64-bit on Teensy 3.x with Teensyduino 1.6.x
 
-    uint8_t dataVersion = 1;
+    uint8_t dataVersion = 2;
 
     // GPS data
     uint8_t hour;

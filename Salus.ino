@@ -63,7 +63,7 @@ void setup()
     analogReadAveraging(4);
     
     // Start USB serial comms
-    Serial.begin(115200);
+    Serial.begin(250000);
     delay(500);
     Serial.println("\nSalus Testing.");
 
@@ -75,8 +75,6 @@ void setup()
     shortBeep();
     Serial.println("Barometer Initialized.\n");
     
-
-
     // Initialize the IMU
     Serial.println("Initializing IMU...");
     imuBegin();

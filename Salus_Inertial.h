@@ -200,7 +200,7 @@ void imuBegin(){
     if (!bno.begin())
     {
         /* There was a problem detecting the BNO055 ... check your connections */
-        Serial.print("Ooops, no BNO055 detected ... Check your wiring or I2C ADDR!");
+        Serial.print(F("Ooops, no BNO055 detected ... Check your wiring or I2C ADDR!"));
         while (1){};
     }
 
@@ -215,7 +215,7 @@ void imuBegin(){
     if (bnoID != sensor.sensor_id)
     {
         bnoID = sensor.sensor_id;
-        Serial.println("\nNo Calibration Data for this sensor exists in EEPROM.");
+        Serial.println(F("\nNo Calibration Data for this sensor exists in EEPROM."));
         calibrateSensor(bno, newCalib);
         writeToEEPROM(eeAddress, sensor.sensor_id, newCalib);
     }
@@ -247,7 +247,7 @@ void imuBegin(){
     displayIMUStatus();
     delay(500);
 
-    bno.setExtCrystalUse(true);
+    bno.setExtCrystalUse(false);
     bno.getSystemStatus(&system_status, &self_test_results, &system_error);
     if (system_status == 0x01)
     {
