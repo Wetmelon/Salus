@@ -72,6 +72,13 @@ void setup()
     // Initialize the Barometer
     Serial.println("Initializing Barometer...");
     myBaro.begin();
+    delay(10);
+    myBaro.baroTask();
+    delay(10);
+    myBaro.baroTask();
+    delay(10);
+    myBaro.baroTask();
+    delay(10);
     shortBeep();
     Serial.println("Barometer Initialized.\n");
     
@@ -84,14 +91,15 @@ void setup()
     // Initialize the GPS module
     Serial.println("Initializing GPS...");
     gpsBegin();
+    gpsPt = getGPS();
     shortBeep();
     Serial.println("GPS Initialized.\n");
 
-    gpsPt = getGPS();
-
     // Initialize Data logger
     //startLogger();
+    Serial.println("Starting binary logger...");
     startBinLogger(&dateTime);
+    Serial.println("Logger started.\n");
 
     Wire.setRate(I2C_RATE_400);
 
@@ -134,9 +142,10 @@ void loop()
     }
     else if (log_flag){
 
+        // Get the current buffer being used by Salus_Logging
         bufferPt = getBuffer();
 
-        // Load the data buffer with current data
+        // Load GPS data into buffer
         bufferPt->hour = gpsPt->hour;
         bufferPt->minute = gpsPt->minute;
         bufferPt->seconds = gpsPt->seconds;
@@ -149,19 +158,30 @@ void loop()
         bufferPt->gpsAltitude = gpsPt->altitude;
         bufferPt->satellites = gpsPt->satellites;
 
+        // Load barometer data into buffer
         bufferPt->pressure = myBaro.getPressure();
         bufferPt->temperature = myBaro.getTemperature();
 
-        bufferPt->xAccel = xG;
-        bufferPt->yAccel = yG;
-        bufferPt->zAccel = zG;
+        // Load ADXL data into buffer
+        bufferPt->adxlX = xG;
+        bufferPt->adxlY = yG;
+        bufferPt->adxlZ = zG;
 
-        bufferPt->xOrient = event.orientation.x;
-        bufferPt->yOrient = event.orientation.y;
-        bufferPt->zOrient = event.orientation.z;
+        // Load BNO-055 data into struct
+        bufferPt->bnoAx = accelEvent.acceleration.x;
+        bufferPt->bnoAy = accelEvent.acceleration.y;
+        bufferPt->bnoAz = accelEvent.acceleration.z;
+        bufferPt->bnoGx = gyroEvent.gyro.x;
+        bufferPt->bnoGy = gyroEvent.gyro.y;
+        bufferPt->bnoGz = gyroEvent.gyro.z;
+        bufferPt->xOrient = orientEvent.orientation.x;
+        bufferPt->yOrient = orientEvent.orientation.y;
+        bufferPt->zOrient = orientEvent.orientation.z;
 
+        // Add to buffer array, or write if array is full
         fastLog();
 
+        // Reset logging timer
         log_flag = 0;
     }
 }

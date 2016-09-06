@@ -35,11 +35,17 @@ typedef struct __attribute__ ((packed)) {
     float temperature;
 
     // ADXL Data
-    double xAccel;
-    double yAccel;
-    double zAccel;
+    float adxlX;
+    float adxlY;
+    float adxlZ;
 
     // IMU Data
+    float bnoAx;
+    float bnoAy;
+    float bnoAz;
+    float bnoGx;
+    float bnoGy;
+    float bnoGz;
     float xOrient;
     float yOrient;
     float zOrient;

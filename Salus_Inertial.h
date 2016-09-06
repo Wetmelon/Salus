@@ -11,8 +11,8 @@
 
 #define BNO055_SAMPLERATE_DELAY_MS (100)
 
-Adafruit_BNO055 bno = Adafruit_BNO055(54, 0x28);
-sensors_event_t event;
+Adafruit_BNO055 bno = Adafruit_BNO055(55, 0x28);
+sensors_event_t orientEvent, accelEvent, gyroEvent;
 /**************************************************************************/
 /*
 Displays some basic information on this sensor from the unified
@@ -267,16 +267,18 @@ void imuBegin(){
 
 void imuTask(){
     /* Get a new sensor event */
-    bno.getEvent(&event);
+    bno.getEvent(&orientEvent);
+    bno.getAccel(&accelEvent);
+    bno.getGyro(&gyroEvent);
 
 #ifdef IMU_DEBUG
     /* Display the floating point data */
     Serial.print("X: ");
-    Serial.print(event.orientation.x, 4);
+    Serial.print(orientEvent.orientation.x, 4);
     Serial.print("\tY: ");
-    Serial.print(event.orientation.y, 4);
+    Serial.print(orientEvent.orientation.y, 4);
     Serial.print("\tZ: ");
-    Serial.print(event.orientation.z, 4);
+    Serial.print(orientEvent.orientation.z, 4);
 
     /* Optional: Display calibration status */
     displayCalStatus();
