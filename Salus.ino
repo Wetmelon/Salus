@@ -74,10 +74,6 @@ void setup()
     pinMode(23, OUTPUT);
     pinMode(24, OUTPUT);
     pinMode(25, OUTPUT);
-    pinMode(A0, INPUT);
-    pinMode(A1, INPUT);
-    pinMode(A2, INPUT);
-    pinMode(A14, INPUT);
 
     // Set default pin states
     digitalWriteFast(BUZZER_PIN, LOW);
