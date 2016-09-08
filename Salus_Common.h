@@ -12,8 +12,10 @@
 //#define ADXL_DEBUG
 //#define LOGGER_DEBUG
 
-//#define WAIT_GPS
-//#define BEEP
+//#define PROFILING
+
+#define WAIT_GPS
+#define BEEP
 
 void shortBeep();
 void longBeep();

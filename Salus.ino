@@ -18,7 +18,7 @@
 #define GPS_RATE        (TIMER_RATE / 100)      // Check GPS for new NMEA at 100Hz.  Actual refresh rate is 5Hz.
 #define ADXL_RATE       (TIMER_RATE / 100)      // Process ADXL377 data at 100Hz
 #define BNO055_RATE     (TIMER_RATE / 100)      // Process BNO055 data at 100Hz
-#define BARO_RATE       (TIMER_RATE / 100)      // Process MS5607 data at 100Hz
+#define BARO_RATE       (TIMER_RATE / 200)      // Process MS5607 data at 100Hz
 #define LOGGING_RATE    (TIMER_RATE / 100)      // Log data at 100Hz
 
 IntervalTimer loopTimer;            // Multi-rate main loop timer object
