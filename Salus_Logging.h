@@ -15,23 +15,23 @@ typedef struct __attribute__ ((packed)) {
     // Doubles are 64-bit on Teensy 3.x with Teensyduino 1.6.x
 
     uint8_t dataVersion = 2;
-
+    
+    uint32_t clock;
+    
     // GPS data
     uint8_t hour;
     uint8_t minute;
     uint8_t seconds;
-    uint16_t milliseconds;
+    uint8_t satellites;
 
     float latitude;
     float longitude;
     float gpsSpeed;
-    float gpsAngle;
     float gpsAltitude;
-
-    uint8_t satellites;
 
     // Barometer data
     float pressure;
+    float altitude;
     float temperature;
 
     // ADXL Data
@@ -46,9 +46,11 @@ typedef struct __attribute__ ((packed)) {
     float bnoGx;
     float bnoGy;
     float bnoGz;
-    float xOrient;
-    float yOrient;
-    float zOrient;
+
+    double quatW;
+    double quatX;
+    double quatY;
+    double quatZ;
 
 } salus_data_t;
 

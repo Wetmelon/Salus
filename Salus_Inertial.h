@@ -13,6 +13,7 @@
 
 Adafruit_BNO055 bno = Adafruit_BNO055(55, 0x28);
 sensors_event_t orientEvent, accelEvent, gyroEvent;
+imu::Quaternion bnoQuat;
 /**************************************************************************/
 /*
 Displays some basic information on this sensor from the unified
@@ -267,7 +268,8 @@ void imuBegin(){
 
 void imuTask(){
     /* Get a new sensor event */
-    bno.getEvent(&orientEvent);
+    //bno.getEvent(&orientEvent);
+    bnoQuat = bno.getQuat();
     bno.getAccel(&accelEvent);
     bno.getGyro(&gyroEvent);
 

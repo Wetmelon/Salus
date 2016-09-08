@@ -21,8 +21,8 @@ const uint16_t FILL_DIM = 512 - DATA_DIM*sizeof(salus_data_t);
 // Maximum file size in blocks.
 // The program creates a contiguous file with FILE_BLOCK_COUNT 512 byte blocks.
 // This file is flash erased using special SD commands.
-// 51430 entries is good for 3600 seconds of logging (60 minutes)
-const uint32_t FILE_BLOCK_COUNT = 51430;
+// 360000 entries is good for 3600 seconds of logging (60 minutes)
+const uint32_t FILE_BLOCK_COUNT = (360000 / DATA_DIM);
 
 // max number of blocks to erase per erase call
 uint32_t const ERASE_SIZE = 262144L;
@@ -50,15 +50,6 @@ void fastLog(){
     else
         blockNum++;
 }
-
-void writeHeader(){
-    file.printf(F("hour,minutes,seconds,millis,lat,long,gpsSpeed,gpsAngle,gpsAlt,sats,pressure,temp,xG,yG,zG,xOrient,yOrient,zOrient\n"));
-    if (!file.sync() || file.getWriteError()) {
-        error("write error");
-    }
-}
-
-
 
 void startBinLogger(void (*dateTime)(uint16_t *date, uint16_t *time)){
 
@@ -127,31 +118,6 @@ void startBinLogger(void (*dateTime)(uint16_t *date, uint16_t *time)){
     }
 }
 
-void startLogger(){
-    if (!sd.begin(SD_CHIPSELECT, SD_SPI_SPEED)) {
-        sd.initErrorHalt();
-    }
-
-    int number = 0;
-    char sName[80];
-
-    // Find a filename that hasn't been used already
-    do{
-        sprintf(sName, "Salus_Results_%d.csv", number++);
-    } while (!file.open(sName, O_CREAT | O_WRITE | O_EXCL));
-    // Write the first line of the csv file
-    writeHeader();
-}
-
 salus_data_t* getBuffer(){
     return &(block.data[blockNum]);
-}
-
-void loggingTask(){
-   /* file.printf("%d,%d,%d,%d,%f,%f,%f,%0.2f,%0.2f,%d,%0.2f,%0.2f,%f,%f,%f,%f,%f,%f\n", block.data.hour, block.data.minute, block.data.seconds, block.data.milliseconds, block.data.latitude, block.data.longitude, block.data.gpsSpeed,
-        block.data.gpsAngle,block.data.gpsAltitude,block.data.satellites, block.data.pressure, block.data.temperature, block.data.xAccel, block.data.yAccel, block.data.zAccel,
-        block.data.xOrient, block.data.yOrient, block.data.zOrient);
-    if (!file.sync() || file.getWriteError()) {
-        error(F("write error"));
-    }*/
 }
