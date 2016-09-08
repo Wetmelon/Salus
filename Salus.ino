@@ -63,9 +63,33 @@ void setup()
 {
     // Set Pin modes
     pinMode(BUZZER_PIN, OUTPUT);
+    pinMode(5, OUTPUT);
+    pinMode(6, OUTPUT);
+    pinMode(7, OUTPUT);
+    pinMode(8, INPUT);
+    pinMode(9, OUTPUT);
+    pinMode(10, OUTPUT);
+    pinMode(19, OUTPUT);
+    pinMode(22, OUTPUT);
+    pinMode(23, OUTPUT);
+    pinMode(24, OUTPUT);
+    pinMode(25, OUTPUT);
+    pinMode(A0, INPUT);
+    pinMode(A1, INPUT);
+    pinMode(A2, INPUT);
+    pinMode(A14, INPUT);
 
     // Set default pin states
     digitalWriteFast(BUZZER_PIN, LOW);
+    digitalWriteFast(5, LOW);
+    digitalWriteFast(6, LOW);
+    digitalWriteFast(7, LOW);
+    digitalWriteFast(9, HIGH);
+    digitalWriteFast(10, HIGH);
+    digitalWriteFast(22, LOW);
+    digitalWriteFast(23, LOW);
+    digitalWriteFast(24, LOW);
+    digitalWriteFast(25, LOW);
 
     // Setup Analog Accelerometer
     analogReadRes(16);
