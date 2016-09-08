@@ -111,15 +111,8 @@ void setup()
     // Initialize the Barometer
     Serial.println(F("Initializing Barometer..."));
     myBaro.begin();
-    myBaro.baroTask();
-    delay(10);
-    myBaro.baroTask();
-    delay(10);
-    myBaro.baroTask();
-    delay(10);
-    myBaro.baroTask();
-    delay(10);
     startAlt = myBaro.getAltitude();
+    Serial.printf("Start Alt: %f\n", startAlt);
     shortBeep();
     Serial.println(F("Barometer Initialized.\n"));
 

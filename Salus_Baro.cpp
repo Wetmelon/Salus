@@ -15,6 +15,22 @@ void Salus_Baro::begin(){
     _ms5607.setOversamplingRate(MS5607_OSR1024);
     _baroState = BARO_STATE_TEMP;
 
+    _ms5607.getPressureBlocking();
+    _temperature = _ms5607.getTemperature() / 100.0;
+    _pressure = _ms5607.getPressure() / 100.0;
+    _altitude = 44330*(1 - pow((_pressure / _altRefPressure), .190284));
+    _ms5607.startTemperatureConversion();
+
+
+#ifdef BARO_DEBUG
+    Serial.print("T: ");
+    Serial.print(_temperature);
+    Serial.print("\t\tP: ");
+    Serial.print(_pressure);
+    Serial.print("\t\tA: ");
+    Serial.println(_altitude);
+#endif
+
 #ifdef DEBUG_BARO
     Serial.println();
     _ms5607.printCalibData();
