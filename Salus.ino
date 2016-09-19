@@ -168,50 +168,55 @@ void loop()
         bno055_flag = 0;
     }
     else if (log_flag){
-        // Get the current buffer being used by Salus_Logging
-        bufferPt = getBuffer();
-        bufferPt->clock = globalClock;
-
-        // Load GPS data into buffer
-        bufferPt->hour = gpsPt->hour;
-        bufferPt->minute = gpsPt->minute;
-        bufferPt->seconds = gpsPt->seconds;
-
-        bufferPt->satellites = gpsPt->satellites;
-
-        bufferPt->latitude = gpsPt->latitudeDegrees;
-        bufferPt->longitude = gpsPt->longitudeDegrees;
-        bufferPt->gpsSpeed = gpsPt->speed;
-        bufferPt->gpsAltitude = gpsPt->altitude;
-
-        // Load barometer data into buffer
-        bufferPt->pressure = myBaro.getPressure();
-        bufferPt->altitude = myBaro.getAltitude() - startAlt;
-        bufferPt->temperature = myBaro.getTemperature();
-
-        // Load ADXL data into buffer
-        bufferPt->adxlX = xG;
-        bufferPt->adxlY = yG;
-        bufferPt->adxlZ = zG;
-
-        // Load BNO-055 data into struct
-        bufferPt->bnoAx = accelEvent.acceleration.x;
-        bufferPt->bnoAy = accelEvent.acceleration.y;
-        bufferPt->bnoAz = accelEvent.acceleration.z;
-        bufferPt->bnoGx = gyroEvent.gyro.x;
-        bufferPt->bnoGy = gyroEvent.gyro.y;
-        bufferPt->bnoGz = gyroEvent.gyro.z;
-        bufferPt->quatW = bnoQuat.w();
-        bufferPt->quatX = bnoQuat.x();
-        bufferPt->quatY = bnoQuat.y();
-        bufferPt->quatZ = bnoQuat.z();
-
+        loggingTask();
         // Add to buffer array, or write if array is full
-        fastLog();
-
+        //fastLog();
         // Reset logging timer
         log_flag = 0;
     }
+}
+
+void loggingTask(){
+    // Get the current buffer being used by Salus_Logging
+    bufferPt = getBuffer();
+    bufferPt->clock = globalClock;
+
+    // Load GPS data into buffer
+    bufferPt->hour = gpsPt->hour;
+    bufferPt->minute = gpsPt->minute;
+    bufferPt->seconds = gpsPt->seconds;
+
+    bufferPt->satellites = gpsPt->satellites;
+
+    bufferPt->latitude = gpsPt->latitudeDegrees;
+    bufferPt->longitude = gpsPt->longitudeDegrees;
+    bufferPt->gpsSpeed = gpsPt->speed;
+    bufferPt->gpsAltitude = gpsPt->altitude;
+
+    // Load barometer data into buffer
+    bufferPt->pressure = myBaro.getPressure();
+    bufferPt->altitude = myBaro.getAltitude() - startAlt;
+    bufferPt->temperature = myBaro.getTemperature();
+
+    // Load ADXL data into buffer
+    bufferPt->adxlX = xG;
+    bufferPt->adxlY = yG;
+    bufferPt->adxlZ = zG;
+
+    // Load BNO-055 data into struct
+    bufferPt->bnoAx = accelEvent.acceleration.x;
+    bufferPt->bnoAy = accelEvent.acceleration.y;
+    bufferPt->bnoAz = accelEvent.acceleration.z;
+    bufferPt->bnoGx = gyroEvent.gyro.x;
+    bufferPt->bnoGy = gyroEvent.gyro.y;
+    bufferPt->bnoGz = gyroEvent.gyro.z;
+    bufferPt->quatW = bnoQuat.w();
+    bufferPt->quatX = bnoQuat.x();
+    bufferPt->quatY = bnoQuat.y();
+    bufferPt->quatZ = bnoQuat.z();
+
+
+
 }
 
 int freeRam()

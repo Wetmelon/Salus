@@ -4,7 +4,6 @@
 
 #include "Salus_Common.h"
 #include <i2c_t3.h>
-#include <Melon_ADXL377.h>
 
 #define XGAIN       (.006645)               // mV / g
 #define YGAIN       (.007065)

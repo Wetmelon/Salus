@@ -14,8 +14,8 @@
 
 //#define PROFILING
 
-#define WAIT_GPS
-#define BEEP
+//#define WAIT_GPS
+//#define BEEP
 
 void shortBeep();
 void longBeep();
