@@ -173,12 +173,19 @@ void loop()
         imuTask();
         bno055_flag = 0;
     }
-    else if (log_flag){
+    else if (log_flag && state == FLIGHT_STATE){
         loggingTask();
         // Add to buffer array, or write if array is full
-        //fastLog();
+        fastLog();
         // Reset logging timer
         log_flag = 0;
+    }
+    if (state == WAITING_STATE){
+        if (abs(accelEvent.acceleration.x) > 24.0)
+        {
+            state = FLIGHT_STATE;
+            globalClock = 0;
+        }
     }
 }
 
@@ -220,17 +227,6 @@ void loggingTask(){
     bufferPt->quatX = bnoQuat.x();
     bufferPt->quatY = bnoQuat.y();
     bufferPt->quatZ = bnoQuat.z();
-
-        // Reset logging timer
-        log_flag = 0;
-    }
-    if (state == WAITING_STATE){
-        if (abs(accelEvent.acceleration.x) > 24.0)
-        {
-            state = FLIGHT_STATE;
-            globalClock = 0;
-        }
-    }
 }
 
 int freeRam()
