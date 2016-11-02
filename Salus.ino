@@ -45,6 +45,9 @@ bool bno055_flag = false;
 bool baro_flag = false;
 bool log_flag = false;
 
+bool beepState = false;
+uint32_t beepTimer = millis();
+
 Salus_Baro myBaro;
 
 salus_data_t* bufferPt;
@@ -143,10 +146,27 @@ void setup()
     shortBeep();
     shortBeep();
     globalClock = 0;
+    beepTimer = millis();
 }
 
 void loop()
 {
+    if (beepState == false){
+        if (millis() - beepTimer > 10000)
+        {
+            digitalWriteFast(BUZZER_PIN, HIGH);
+            beepState = true;
+            beepTimer = millis();
+        }
+    }
+    else if (beepState == true){
+        if (millis() - beepTimer > 150){
+            digitalWriteFast(BUZZER_PIN, LOW);
+            beepState = false;
+            beepTimer = millis();
+        }
+    }
+
     if (gps_flag)
     {
         gpsTask();
