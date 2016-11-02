@@ -12,7 +12,7 @@
 //#define ADXL_DEBUG
 //#define LOGGER_DEBUG
 
-//#define PROFILING
+#define PROFILING
 
 //#define WAIT_GPS
 //#define BEEP

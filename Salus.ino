@@ -33,6 +33,12 @@ uint32_t maxGps = 0;
 
 float startAlt = 0;
 
+enum control_state {
+    WAITING_STATE,
+    FLIGHT_STATE
+};
+enum control_state state = WAITING_STATE;
+
 bool gps_flag = false;
 bool adxl_flag = false;
 bool bno055_flag = false;
@@ -215,8 +221,16 @@ void loggingTask(){
     bufferPt->quatY = bnoQuat.y();
     bufferPt->quatZ = bnoQuat.z();
 
-
-
+        // Reset logging timer
+        log_flag = 0;
+    }
+    if (state == WAITING_STATE){
+        if (abs(accelEvent.acceleration.x) > 24.0)
+        {
+            state = FLIGHT_STATE;
+            globalClock = 0;
+        }
+    }
 }
 
 int freeRam()
