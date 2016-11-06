@@ -47,6 +47,7 @@ bool log_flag = false;
 
 bool beepState = false;
 uint32_t beepTimer = millis();
+uint32_t beepPace = 10000;
 
 Salus_Baro myBaro;
 
@@ -152,7 +153,7 @@ void setup()
 void loop()
 {
     if (beepState == false){
-        if (millis() - beepTimer > 10000)
+        if (millis() - beepTimer > beepPace)
         {
             digitalWriteFast(BUZZER_PIN, HIGH);
             beepState = true;
@@ -164,6 +165,10 @@ void loop()
             digitalWriteFast(BUZZER_PIN, LOW);
             beepState = false;
             beepTimer = millis();
+#ifdef STATE_DEBUG
+            Serial.print("State: ");
+            Serial.println(state);
+#endif
         }
     }
 
@@ -195,9 +200,15 @@ void loop()
         log_flag = 0;
     }
     if (state == WAITING_STATE){
-        if (abs(accelEvent.acceleration.x) > 24.0)
+        if (abs(accelEvent.acceleration.y) > 24.0)
         {
+#ifdef STATE_DEBUG
+            Serial.println("State changed to FLIGHT!");
+            Serial.print("Accel: ");
+            Serial.println(abs(accelEvent.acceleration.y));
+#endif
             state = FLIGHT_STATE;
+            beepPace = 750;
             globalClock = 0;
         }
     }

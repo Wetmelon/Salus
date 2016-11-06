@@ -268,7 +268,7 @@ void imuBegin(){
 
 void imuTask(){
     /* Get a new sensor event */
-    //bno.getEvent(&orientEvent);
+    bno.getEvent(&orientEvent);
     bnoQuat = bno.getQuat();
     bno.getAccel(&accelEvent);
     bno.getGyro(&gyroEvent);

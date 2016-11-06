@@ -11,6 +11,7 @@
 //#define IMU_DEBUG
 //#define ADXL_DEBUG
 //#define LOGGER_DEBUG
+//#define STATE_DEBUG
 #define WAIT_GPS
 #define BEEP
 
