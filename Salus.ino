@@ -209,6 +209,7 @@ void loop()
 #endif
             state = FLIGHT_STATE;
             beepPace = 750;
+            startAlt = myBaro.getAltitude();
             globalClock = 0;
         }
     }
