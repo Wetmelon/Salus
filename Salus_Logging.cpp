@@ -22,7 +22,7 @@ const uint16_t FILL_DIM = 512 - DATA_DIM*sizeof(salus_data_t);
 // The program creates a contiguous file with FILE_BLOCK_COUNT 512 byte blocks.
 // This file is flash erased using special SD commands.
 // 360000 entries is good for 3600 seconds of logging (60 minutes)
-const uint32_t FILE_BLOCK_COUNT = (36000 / DATA_DIM);
+const uint32_t FILE_BLOCK_COUNT = (360000 / DATA_DIM);
 
 // max number of blocks to erase per erase call
 uint32_t const ERASE_SIZE = 262144L;
