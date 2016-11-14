@@ -1,4 +1,4 @@
-update=4/24/2016 11:59:56 PM
+update=11/14/2016 12:54:45 PM
 version=1
 last_client=kicad
 [pcbnew]
@@ -25,42 +25,6 @@ version=1
 NetIExt=net
 [general]
 version=1
-[eeschema]
-version=1
-LibDir=C:/Users/Paul/Dropbox/Electronics/KiCad Libraries
-[eeschema/libraries]
-LibName1=Salus-rescue
-LibName2=Test-rescue
-LibName3=C:/Users/Paul/Dropbox/Electronics/KiCad Libraries/Wetmelon
-LibName4=power
-LibName5=device
-LibName6=transistors
-LibName7=conn
-LibName8=linear
-LibName9=regul
-LibName10=74xx
-LibName11=cmos4000
-LibName12=adc-dac
-LibName13=memory
-LibName14=xilinx
-LibName15=microcontrollers
-LibName16=dsp
-LibName17=microchip
-LibName18=analog_switches
-LibName19=motorola
-LibName20=texas
-LibName21=intel
-LibName22=audio
-LibName23=interface
-LibName24=digital-audio
-LibName25=philips
-LibName26=display
-LibName27=cypress
-LibName28=siliconi
-LibName29=opto
-LibName30=atmel
-LibName31=contrib
-LibName32=valves
 [schematic_editor]
 version=1
 PageLayoutDescrFile=
@@ -71,3 +35,37 @@ NetFmtName=
 SpiceForceRefPrefix=0
 SpiceUseNetNumbers=0
 LabSize=60
+[eeschema]
+version=1
+LibDir=C:/Users/Paul/Dropbox/Electronics/KiCad Libraries;../Hardware
+[eeschema/libraries]
+LibName1=Wetmelon
+LibName2=power
+LibName3=device
+LibName4=transistors
+LibName5=conn
+LibName6=linear
+LibName7=regul
+LibName8=74xx
+LibName9=cmos4000
+LibName10=adc-dac
+LibName11=memory
+LibName12=xilinx
+LibName13=microcontrollers
+LibName14=dsp
+LibName15=microchip
+LibName16=analog_switches
+LibName17=motorola
+LibName18=texas
+LibName19=intel
+LibName20=audio
+LibName21=interface
+LibName22=digital-audio
+LibName23=philips
+LibName24=display
+LibName25=cypress
+LibName26=siliconi
+LibName27=opto
+LibName28=atmel
+LibName29=contrib
+LibName30=valves
