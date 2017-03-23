@@ -2134,7 +2134,7 @@
     (model "C:/Users/Paul/Downloads/KiCad Models/sot-223/sot-223.wrl"
       (at (xyz 0 0 0))
       (scale (xyz 10 10 10))
-      (rotate (xyz -90 0 90))
+      (rotate (xyz 0 0 0))
     )
   )
 
