@@ -305,10 +305,10 @@ imu::Vector<3> Adafruit_BNO055::getVector(adafruit_vector_type_t vector_type)
       xyz[2] = ((double)z)/16.0;
       break;
     case VECTOR_GYROSCOPE:
-      /* 1rps = 900 LSB */
-      xyz[0] = ((double)x)/900.0;
-      xyz[1] = ((double)y)/900.0;
-      xyz[2] = ((double)z)/900.0;
+      /* 1dps = 16 LSB */
+      xyz[0] = ((double)x)/16.0;
+      xyz[1] = ((double)y)/16.0;
+      xyz[2] = ((double)z)/16.0;
       break;
     case VECTOR_EULER:
       /* 1 degree = 16 LSB */
@@ -537,8 +537,6 @@ bool Adafruit_BNO055::setSensorOffsets(const uint8_t* calibData)
 
     setMode(OPERATION_MODE_CONFIG);
     delay(25);
-
-    
 
     getSystemStatus(&system_status, &self_test_results, &system_error);
 
