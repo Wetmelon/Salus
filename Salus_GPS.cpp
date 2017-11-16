@@ -17,12 +17,6 @@ char readGPS(){
 bool gpsBegin(){
 
     Serial2.begin(9600);
-    delay(1000);
-    myGPS.sendCommand(PMTK_SET_BAUD_115200);
-    delay(100);
-    Serial2.end();
-    delay(100);
-    Serial2.begin(115200);
     delay(100);
     myGPS.sendCommand(PMTK_SET_NMEA_OUTPUT_RMCGGA);     // RMC and GGA data
     myGPS.sendCommand(PMTK_SET_NMEA_UPDATE_10HZ);        // 5 Hz update rate
