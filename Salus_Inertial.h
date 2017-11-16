@@ -11,7 +11,7 @@
 
 #define BNO055_SAMPLERATE_DELAY_MS (100)
 
-Adafruit_BNO055 bno = Adafruit_BNO055(55, 0x28);
+Adafruit_BNO055 bno = Adafruit_BNO055(2, 0x28);
 sensors_event_t orientEvent, accelEvent, gyroEvent;
 imu::Quaternion bnoQuat;
 /**************************************************************************/
